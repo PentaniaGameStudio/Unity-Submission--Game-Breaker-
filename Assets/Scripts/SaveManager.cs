@@ -54,7 +54,7 @@ public class SaveManager : MonoBehaviour
         bool result = false;
         foreach(FieldInfo field in typeof(SaveManager.SaveData).GetFields())
         {
-            if (field.Name.Contains(stringName)) result = true;
+            if (field.Name == stringName) result = true;
         }
         return result;
         

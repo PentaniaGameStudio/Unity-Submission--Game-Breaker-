@@ -1054,7 +1054,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: -Empty-
-  playerLastName: -Empty-
 --- !u!4 &1081370855
 Transform:
   m_ObjectHideFlags: 0
@@ -1444,6 +1443,7 @@ MonoBehaviour:
   saveData:
     playerName: Nico
     playerScore: 0
+    bestPlayerName: -Empty-
 --- !u!4 &1846745581
 Transform:
   m_ObjectHideFlags: 0
