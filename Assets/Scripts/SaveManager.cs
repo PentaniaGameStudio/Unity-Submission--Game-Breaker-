@@ -12,6 +12,7 @@ public class SaveManager : MonoBehaviour
     { 
     [SerializeField] public string playerName = "";
     [SerializeField] public int playerScore = 0;
+        [SerializeField] public string bestPlayerName = "-Empty-";
     }
     public SaveData saveData = new SaveData();
 
@@ -34,7 +35,7 @@ public class SaveManager : MonoBehaviour
 
     private void LoadPersistantData()
     {
-        string path = Application.dataPath + "/savefile.json";
+        string path = Application.dataPath + "/Save.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -45,27 +46,49 @@ public class SaveManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         string json = JsonUtility.ToJson(saveData);
-        File.WriteAllText(Application.dataPath + "/savefile.json", json);
+        File.WriteAllText(Application.dataPath + "/Save.json", json);
+    }
+
+    private bool TryStringName(string stringName)
+    {
+        bool result = false;
+        foreach(FieldInfo field in typeof(SaveManager.SaveData).GetFields())
+        {
+            if (field.Name == stringName) result = true;
+        }
+        return result;
+        
     }
 
     public void Save(string saving, string stringName)
     {
-        dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
-        if (dataToCheck.FieldType == typeof(string))
+        if (TryStringName(stringName) == true)
         {
-            dataToCheck.SetValue(saveData, saving);
+            dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
+            if (dataToCheck.FieldType == typeof(string))
+            {
+                dataToCheck.SetValue(saveData, saving);
+            }
+            else Debug.Log("Type Error, string wanted");
         }
-        else Debug.Log("Type Error, string wanted");
+        else Debug.Log("Name Error, your string don't exist");
     }
 
     public void Save(int saving, string stringName)
     {
-        dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
-        if (dataToCheck.FieldType == typeof(int))
+        if (TryStringName(stringName) == true)
         {
-            dataToCheck.SetValue(saveData, saving);
+            if (typeof(SaveManager.SaveData).GetProperty(stringName) != null)
+            {
+                dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
+                if (dataToCheck.FieldType == typeof(int))
+                {
+                    dataToCheck.SetValue(saveData, saving);
+                }
+                else Debug.Log("Type Error, integer wanted");
+            }
+            else Debug.Log("Name Error, your integer don't exist");
         }
-        else Debug.Log("Type Error, int wanted");
     }
 
     public string Load(string baseValue, string stringName)

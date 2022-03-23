@@ -15,14 +15,13 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        //playerLastName = SaveManager.instance.Load("", "playerScore");
-        //playerName = SaveManager.instance.Load("", "playerName");
+        playerName = SaveManager.instance.Load("", "playerName");
     }
 
     public void StartGame()
     {
         SaveManager.instance.Save(playerName, "playerName");
-        SaveManager.instance.Save(5, "playerScore");
+        SaveManager.instance.Save(playerName, "playerNameuh");
         SceneManager.LoadScene(1);
     }
 

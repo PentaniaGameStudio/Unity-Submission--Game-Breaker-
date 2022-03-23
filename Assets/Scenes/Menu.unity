@@ -1423,7 +1423,7 @@ GameObject:
   - component: {fileID: 1846745581}
   - component: {fileID: 1846745580}
   m_Layer: 0
-  m_Name: DataSave
+  m_Name: SaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,9 +1441,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45cb42314d7a00849ae2d6789deb6ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Nicolas
-  playerLastName: Boissy
-  playerScore: 0
+  saveData:
+    playerName: Nico
+    playerScore: 0
 --- !u!4 &1846745581
 Transform:
   m_ObjectHideFlags: 0
