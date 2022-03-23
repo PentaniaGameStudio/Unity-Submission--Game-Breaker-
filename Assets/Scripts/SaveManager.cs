@@ -49,12 +49,12 @@ public class SaveManager : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/Save.json", json);
     }
 
-    private bool TryStringName(string stringName)
+    private bool TryVariableName(string stringName)
     {
         bool result = false;
         foreach(FieldInfo field in typeof(SaveManager.SaveData).GetFields())
         {
-            if (field.Name == stringName) result = true;
+            if (field.Name.Contains(stringName)) result = true;
         }
         return result;
         
@@ -62,7 +62,7 @@ public class SaveManager : MonoBehaviour
 
     public void Save(string saving, string stringName)
     {
-        if (TryStringName(stringName) == true)
+        if (TryVariableName(stringName) == true)
         {
             dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
             if (dataToCheck.FieldType == typeof(string))
@@ -76,19 +76,17 @@ public class SaveManager : MonoBehaviour
 
     public void Save(int saving, string stringName)
     {
-        if (TryStringName(stringName) == true)
+        if (TryVariableName(stringName) == true)
         {
-            if (typeof(SaveManager.SaveData).GetProperty(stringName) != null)
-            {
                 dataToCheck = typeof(SaveManager.SaveData).GetField(stringName);
                 if (dataToCheck.FieldType == typeof(int))
                 {
                     dataToCheck.SetValue(saveData, saving);
                 }
                 else Debug.Log("Type Error, integer wanted");
-            }
-            else Debug.Log("Name Error, your integer don't exist");
+                       
         }
+        else Debug.Log("Name Error, your integer don't exist");
     }
 
     public string Load(string baseValue, string stringName)

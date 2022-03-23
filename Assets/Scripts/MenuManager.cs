@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private string playerName = "-Empty-";
-    [SerializeField] private string playerLastName = "-Empty-";
 
     private void Awake()
     {
@@ -21,7 +20,6 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         SaveManager.instance.Save(playerName, "playerName");
-        SaveManager.instance.Save(playerName, "playerNameuh");
         SceneManager.LoadScene(1);
     }
 
